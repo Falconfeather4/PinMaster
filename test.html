@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Copy Highlighted Text</title>
+  <style>
+    /* Optional styling for demonstration */
+    .source {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .destination {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="source" contenteditable="true">
+  <h1>This is a heading</h1>
+  <p>This is some text. Select and copy it.</p>
+</div>
+
+<div class="destination" contenteditable="true">
+  Paste copied text here.
+</div>
+
+<script>
+  document.addEventListener('mouseup', function() {
+    var selection = window.getSelection();
+    var selectedText = selection.toString();
+    
+    if (selectedText) {
+      var range = selection.getRangeAt(0);
+      var clonedContent = range.cloneContents();
+      
+      var newDiv = document.createElement('div');
+      newDiv.appendChild(clonedContent);
+      
+      var destinationDiv = document.querySelector('.destination');
+      destinationDiv.innerHTML = '';
+      destinationDiv.appendChild(newDiv);
+    }
+  });
+</script>
+
+</body>
+</html>
