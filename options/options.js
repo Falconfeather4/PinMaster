@@ -10,16 +10,16 @@ function handleButtonClick(e) {
   const buttonId = e.target.id;
 
   switch(buttonId) {
-    case 'highlighted_text_button':
+    case 'highlightedButton':
       // code block
       break;
-    case 'input_button':
+    case 'inputButton':
       // code block
       break;
-    case 'single_select_button':
+    case 'singleSelectButton':
       // code block
       break;
-    case 'multi_select_button':
+    case 'multiSelectButton':
       // code block
       break;
     default:
