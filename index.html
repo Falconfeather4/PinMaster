@@ -12,6 +12,7 @@
 
 
  <H1>Sorting Algorithm Written Assignment:</H1>
+ <h4>Difficulty: Extra hard</h4>
 
 
  <div>
@@ -25,7 +26,7 @@
  <br>
 
 
- <h3>Analyze the following sorting algorithm and answer the following questions:</h3>
+ <h3>Analyze the following sorting algorithm and answer the questions below:</h3>
  <div class="code_block">
    <pre>
      <code>
@@ -86,7 +87,50 @@
 
 
    <div>
-       <h1>Question 2: input three things</h1>
+       <h2>Question 2: input three things</h2>
+       <p>
+        Consider the following changes that we would make to the code:
+       </p>
+        <pre class="code_block">
+          <code>
+            using namespace std;
+           
+            int partition(int arr[],int low,int high)
+            {
+              //choose the pivot
+             
+              int pivot=arr[high];
+              //Index of smaller element and Indicate
+              //the right position of pivot found so far
+              int i=(low-1);
+             
+              for(int j=low;j&lt=high;j--)
+              {
+                //If current element is smaller than the pivot
+                if(arr[j]&ltpivot)
+                {
+                  //Increment index of smaller element
+                  i++;
+                  swap(arr[i],arr[j]);
+                }
+              }
+              swap(arr[i+1],arr[high]);
+              return (i+1);
+            }       
+          </code>
+        </pre>
+       
+    </div>
+
+    <p>
+      In three paragraphs, explain:
+    </p>
+    <ul>
+      <li>The design decisions made</li>
+      <li>A situation where this design decision would work better than the original</li>
+      <li>A situation where this design decision would be worse than the original</li>
+    </ul>
+       
        <form>
            <input style="display: block; padding: 1em" type="text" id="2-a">
            <input style="display: block; padding: 1em" type="text" id="2-b">
@@ -96,12 +140,33 @@
 
 
    <div>
-       <h1>Question 3: Select all that apply</h1>
+       <h2>Question 3: Select all that apply</h1>
+        <p>
+          Warning: Answering this question incorrectly will automatically deduct 60% from your final grade for this course!
+          <br>
+          Anser carefully!
+        </p>
        <form>
            <input type="checkbox" name="3" id="3-a">
+           <label>I love computer science</label>
+           <br>
            <input type="checkbox" name="3" id="3-b">
+           <label>Quick sort is my favourite algorithm</label>
+           <br>
            <input type="checkbox" name="3" id="3-c">
+           <label>I'm going to eat sushi for dinner tonight</label>
+           <br>
+           <input type="checkbox" name="3" id="3-c">
+           <label>This assignment is too long, future assignments should be shortened</label>
+           <br>
+           <input type="checkbox" name="3" id="3-c">
+           <label>I'm not in CS but I'm taking this course</label>
+           <br>
+           <input type="checkbox" name="3" id="3-c">
+           <label></label>
+           <br>
        </form>
+       <H1>This question is autograded</H1>
    </div>
 
 
@@ -112,5 +177,5 @@
        DOM OUTLINE
    </button>
 </body>
-<script src="popup/jquery.dom-outline-1.0.js"></script>
+<script src="./popup/jquery.dom-outline-1.0.js"></script>
 </html>
