@@ -1,5 +1,4 @@
 function makePopup() {
-  console.log('popup');
   const popup = document.implementation.createHTMLDocument('popup');
   const div = popup.createElement('div');
   div.setAttribute('id', 'end');
