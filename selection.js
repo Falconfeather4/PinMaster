@@ -3,7 +3,9 @@ function getHighlightedText() {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  text = getHighlightedText();
-  console.log(text);
-  sendResponse({ message: text });
+  if (message === 'get_highlighted_text') {
+    text = getHighlightedText();
+    console.log(text);
+    sendResponse({ message: text });
+  }
 });
