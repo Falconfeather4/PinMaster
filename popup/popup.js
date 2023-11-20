@@ -1,4 +1,5 @@
 function makePopup() {
+  console.log('popup');
   const popup = document.implementation.createHTMLDocument('popup');
   const div = popup.createElement('div');
   div.setAttribute('id', 'end');
@@ -6,30 +7,13 @@ function makePopup() {
   return popup;
 }
 
-function addHighlightedText(doc) {
+function addHighlightedText(doc, text) {
   const end = doc.getElementById('end');
-  const highlightedText = window.getSelection().toString();
+  // const highlightedText = window.getSelection().toString();
   const newDiv = doc.createElement('div');
-  const newContent = doc.createTextNode(highlightedText);
+  const newContent = doc.createTextNode(text);
   newDiv.appendChild(newContent);
   doc.body.insertBefore(newDiv, end);
-}
-
-function openPopup(element = undefined) {
-  let popupWindow;
-  if (element) {
-    popupWindow = window.open('', '_blank', 'width=400,height=300');
-    var $elem = $(popupWindow.document.body);
-    var $selected = $(element);
-    $elem.append($selected.clone());
-  } else {
-    const popup = makePopup();
-    addHighlightedText(popup);
-    popupWindow = window.open('', '_blank', 'width=400,height=300');
-    popupWindow.document.write(popup.documentElement.outerHTML);
-  }
-  let inputs = popupWindow.document.querySelectorAll('input');
-  addCheckFunctionality(inputs);
 }
 
 async function openPopupNoElement() {
@@ -37,11 +21,29 @@ async function openPopupNoElement() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   // Send a message to the content script
-  chrome.tabs.sendMessage(tab.id, 'get_highlighted_text', function (response) {
-    // Handle the response from the content script
-    console.log('Received response from content script:', response);
-  });
+  let response = null;
+  while (!response || response.message === '') {
+    response = await chrome.tabs.sendMessage(tab.id, 'get_highlighted_text');
+    // console.log(response.message);
+  }
+  console.log('Received response from content script:', response.message);
+  let popupWindow;
+  const popup = makePopup();
+  addHighlightedText(popup, response.message);
+  popupWindow = window.open('', '_blank', 'width=400,height=300');
+  popupWindow.document.write(popup.documentElement.outerHTML);
 }
+
+// , function (response) {
+//   // Handle the response from the content script
+//   console.log('Received response from content script:', response);
+//   let popupWindow;
+//   const popup = makePopup();
+//   addHighlightedText(popup, response);
+//   popupWindow = window.open('', '_blank', 'width=400,height=300');
+//   popupWindow.document.write(popup.documentElement.outerHTML);
+//   console.log('48');
+// });
 
 // const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 // console.log(tab);
@@ -64,29 +66,6 @@ async function openPopupNoElement() {
 // popupWindow.document.write(popup.documentElement.outerHTML);
 // let inputs = popupWindow.document.querySelectorAll('input');
 // addCheckFunctionality(inputs);
-
-function addTextFunctionality(inputs) {
-  inputs.forEach((input) => {
-    input.addEventListener('input', (e) => handleTextChange(e, input));
-  });
-}
-
-function handleTextChange(e, input) {
-  let element = document.getElementById(input.id);
-  value = e.target.value;
-  element.setAttribute('value', value);
-}
-
-function addCheckFunctionality(inputs) {
-  inputs.forEach((input) => {
-    input.addEventListener('click', (e) => handleCheckChange(e, input));
-  });
-}
-
-function handleCheckChange(e, input) {
-  let element = document.getElementById(input.id);
-  element.checked = true;
-}
 
 // DOM OUTLINE LOGIC ------------------------------------------------------------
 
