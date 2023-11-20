@@ -32,6 +32,39 @@ function openPopup(element = undefined) {
   addCheckFunctionality(inputs);
 }
 
+async function openPopupNoElement() {
+  // Query for the active tab
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  // Send a message to the content script
+  chrome.tabs.sendMessage(tab.id, 'get_highlighted_text', function (response) {
+    // Handle the response from the content script
+    console.log('Received response from content script:', response);
+  });
+}
+
+// const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+// console.log(tab);
+// // console.log(document.getSelection());
+// // const window2 = await chrome.windows.getCurrent();
+// chrome.scripting.executeScript(
+//   {
+//     target: { tabId: tab.id, allFrames: true },
+//     files: ['selection.js'],
+//   },
+//   function (response) {
+//     console.log(response);
+//   }
+// );
+
+// let popupWindow;
+// const popup = makePopup();
+// addHighlightedText(popup);
+// popupWindow = window.open('', '_blank', 'width=400,height=300');
+// popupWindow.document.write(popup.documentElement.outerHTML);
+// let inputs = popupWindow.document.querySelectorAll('input');
+// addCheckFunctionality(inputs);
+
 function addTextFunctionality(inputs) {
   inputs.forEach((input) => {
     input.addEventListener('input', (e) => handleTextChange(e, input));
@@ -55,7 +88,7 @@ function handleCheckChange(e, input) {
   element.checked = true;
 }
 
-// DOM OUTLINE LOGIC
+// DOM OUTLINE LOGIC ------------------------------------------------------------
 
 function openDOMOutline() {
   myDomOutline.start();
@@ -280,3 +313,18 @@ var myDomOutline = DomOutline({
   onClick: DOMClick,
   filter: 'div',
 });
+
+let highlight = document.getElementById('highlighted_text_button');
+highlight.addEventListener('click', openPopupNoElement);
+
+document
+  .getElementById('input_button')
+  .addEventListener('click', openDOMOutline);
+
+document
+  .getElementById('multi_select_button')
+  .addEventListener('click', openDOMOutline);
+
+document
+  .getElementById('single_select_button')
+  .addEventListener('click', openDOMOutline);
