@@ -1,57 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test File</title>
-    <script src="./popup/jquery.min.js"></script>
-    <script src="popup/popup.js" defer></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Test File</title>
+   <link rel="stylesheet" href="index.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   <script src="popup/popup.js" defer></script>
 </head>
 <body>
-    <div>
-        <h1>Question 1: Select the correct answer</h1>
-        <form>
-            <input type="radio" id="1-a" name="1">
-            <input type="radio" id="1-b" name="1">
-            <input type="radio" id="1-c" name="1">
-        </form>
-    </div>
-    
 
-    <div>
-        <h1>Question 2: input three things</h1>
-        <form>
-            <input style="display: block; padding: 1em" type="text" id="2-a">
-            <input style="display: block; padding: 1em" type="text" id="2-b">
-            <input style="display: block; padding: 1em" type="text" id="2-c">
-        </form>
-    </div>
 
-    <div>
-        <h1>Question 3: Select all that apply</h1>
-        <form>
-            <input type="checkbox" name="3" id="3-a">
-            <input type="checkbox" name="3" id="3-b">
-            <input type="checkbox" name="3" id="3-c">
-        </form>
-    </div>
+ <H1>Sorting Algorithm Written Assignment:</H1>
 
-    <button onclick="openPopup()">
-        HIGHLIGHTED TEXT
-    </button>
-    <button onclick="openDOMOutline()">
-        DOM OUTLINE
-    </button>
+
+ <div>
+   <h4>Learning Goals:</h4>
+   <ul>
+     <li>Understand quicksort</li>
+     <li>Understand asymptotics</li>
+     <li>Become super cool programmer</li>
+   </ul>
+ </div>
+ <br>
+
+
+ <h3>Analyze the following sorting algorithm and answer the following questions:</h3>
+ <div class="code_block">
+   <pre>
+     <code>
+       using namespace std;
+      
+       int partition(int arr[],int low,int high)
+       {
+         //choose the pivot
+        
+         int pivot=arr[high];
+         //Index of smaller element and Indicate
+         //the right position of pivot found so far
+         int i=(low-1);
+        
+         for(int j=low;j&lt=high;j++)
+         {
+           //If current element is smaller than the pivot
+           if(arr[j]&ltpivot)
+           {
+             //Increment index of smaller element
+             i++;
+             swap(arr[i],arr[j]);
+           }
+         }
+         swap(arr[i+1],arr[high]);
+         return (i+1);
+       }       
+     </code>
+   </pre>
+ </div>
+
+
+
+
+  
+   <div>
+       <h2>Question 1: What is the asympotic running time of the sorting algorithm?</h2>
+       <p>Hint: Think really hard and maybe you'll know the answer. <br>This question has one attempt only.</p>
+       <form>
+           <input type="radio" id="1-a" name="1">
+           <label>Answer 1</label>
+           <br>
+           <input type="radio" id="1-b" name="1">
+           <label>Answer 2</label>
+           <br>
+           <input type="radio" id="1-c" name="1">
+           <label>Answer 3</label>
+           <br>
+           <input type="radio" id="1-c" name="1">
+           <label>Answer 4</label>
+           <br>
+           <input type="radio" id="1-c" name="1">
+           <label>Answer 5</label>
+           <br>
+       </form>
+   </div>
+  
+
+
+   <div>
+       <h1>Question 2: input three things</h1>
+       <form>
+           <input style="display: block; padding: 1em" type="text" id="2-a">
+           <input style="display: block; padding: 1em" type="text" id="2-b">
+           <input style="display: block; padding: 1em" type="text" id="2-c">
+       </form>
+   </div>
+
+
+   <div>
+       <h1>Question 3: Select all that apply</h1>
+       <form>
+           <input type="checkbox" name="3" id="3-a">
+           <input type="checkbox" name="3" id="3-b">
+           <input type="checkbox" name="3" id="3-c">
+       </form>
+   </div>
+
+
+   <button onclick="openPopup()">
+       HIGHLIGHTED TEXT
+   </button>
+   <button onclick="openDOMOutline()">
+       DOM OUTLINE
+   </button>
 </body>
-<script src="./popup/jquery.dom-outline-1.0.js"></script>
+<script src="popup/jquery.dom-outline-1.0.js"></script>
 </html>
-
-<!-- "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
-    }
-  ],
-  "background": {
-    "service_worker": "background.js"
-  }-->
